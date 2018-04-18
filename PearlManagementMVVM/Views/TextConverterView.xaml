@@ -1,0 +1,19 @@
+﻿<Window x:Class="PearlManagementMVVM.Views.TextConverterView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ViewModels="clr-namespace:PearlManagementMVVM.ViewModels"
+        xmlns:ViewControls="clr-namespace:PearlManagementMVVM.Views.Controls"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PearlManagementMVVM.Views"
+        Title="TextConverterView"
+        MinWidth="300"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight">
+
+  <Window.DataContext>
+    <ViewModels:TextConverterViewModel/>
+  </Window.DataContext>
+    
+  <ViewControls:TextConverterControl/>
+</Window>
