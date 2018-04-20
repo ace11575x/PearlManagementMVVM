@@ -14,6 +14,14 @@ namespace PearlManagementMVVM.Models
     
     public partial class Product
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Product()
+        {
+            this.Inventories = new HashSet<Inventory>();
+            this.ProductSales = new HashSet<ProductSale>();
+            this.SaleDates = new HashSet<SaleDate>();
+        }
+    
         public System.Guid Key { get; set; }
         public int Reference { get; set; }
         public string Name { get; set; }
@@ -24,5 +32,12 @@ namespace PearlManagementMVVM.Models
         public int Min_Order_Quantity { get; set; }
         public double Purchase_Price { get; set; }
         public double Sell_Price { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Inventory> Inventories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductSale> ProductSales { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SaleDate> SaleDates { get; set; }
     }
 }

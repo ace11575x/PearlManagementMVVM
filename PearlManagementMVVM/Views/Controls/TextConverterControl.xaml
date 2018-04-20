@@ -15,11 +15,11 @@
   </UserControl.InputBindings>
 
   <StackPanel Height="336">
-    <Label Foreground="Blue" Margin="5,5,5,0">Text To Convert</Label>
+    <Label  Margin="5,5,5,0">Text To Convert</Label>
     <TextBox Text="{Binding SomeText, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
-    <Label Foreground="Blue" Margin="5,5,5,0">History</Label>
-    <ListBox ItemsSource="{Binding History}" Height="200" Margin="5"/>
-    <Button Command="{Binding ConvertTextCommand}" Margin="5">Convert</Button>
+    <Label  Margin="5,5,5,0">History</Label>
+    <ListBox ItemsSource="{Binding History}" Height="185" Margin="5"/>
+    <Button Command="{Binding ConvertTextCommand}" Margin="5,5,5,5" >Convert</Button>
   </StackPanel>
 
 </UserControl>

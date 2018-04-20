@@ -1,0 +1,31 @@
+﻿<Window x:Class="PearlManagementMVVM.Views.HomeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+        xmlns:ViewModels="clr-namespace:PearlManagementMVVM.ViewModels"
+        xmlns:ViewControls="clr-namespace:PearlManagementMVVM.Views.Controls"
+        xmlns:local="clr-namespace:PearlManagementMVVM.Views"
+        mc:Ignorable="d"
+        Title="HomeView" Height="450" MinWidth="1310">
+  <Grid>
+    <dragablz:TabablzControl>
+      <dragablz:TabablzControl.InterTabController>
+        <dragablz:InterTabController />
+      </dragablz:TabablzControl.InterTabController>
+      <TabItem Header="Products">
+        <TabItem.DataContext>
+          <ViewModels:ProductViewModel/>
+        </TabItem.DataContext>
+        <ViewControls:ProductControl/>
+      </TabItem>
+      <TabItem Header="Inventory">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Material Design</TextBlock>
+      </TabItem>
+      <TabItem Header="Sales">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Looks Quite Nice</TextBlock>
+      </TabItem>
+    </dragablz:TabablzControl>
+  </Grid>
+</Window>

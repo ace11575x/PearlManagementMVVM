@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PearlsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="On_Hand" Type="int" Nullable="false" />
+          <Property Name="Shipped" Type="int" Nullable="false" />
+          <Property Name="Sold" Type="int" Nullable="false" />
+          <Property Name="Product_Key" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Delete_Flag" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Reference" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Link" Type="nvarchar" MaxLength="2083" />
+          <Property Name="Is_Lot" Type="bit" Nullable="false" />
+          <Property Name="Is_Single" Type="bit" Nullable="false" />
+          <Property Name="Min_Order_Quantity" Type="int" Nullable="false" />
+          <Property Name="Purchase_Price" Type="float" Nullable="false" />
+          <Property Name="Sell_Price" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductSales">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Product_Key" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SaleDate_Key" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Delete_Flag" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SaleDate">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Product_Key" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Delete_Flag" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Inventory_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="Product_Key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSales_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="ProductSales" Type="Self.ProductSales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="ProductSales">
+              <PropertyRef Name="Product_Key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleDate_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="SaleDate" Type="Self.SaleDate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="SaleDate">
+              <PropertyRef Name="Product_Key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PearlsModelStoreContainer">
+          <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductSales" EntityType="Self.ProductSales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SaleDate" EntityType="Self.SaleDate" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Inventory_Products" Association="Self.FK_Inventory_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSales_Products" Association="Self.FK_ProductSales_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductSales" EntitySet="ProductSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleDate_Products" Association="Self.FK_SaleDate_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="SaleDate" EntitySet="SaleDate" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PearlsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="Guid" Nullable="false" />
+          <Property Name="On_Hand" Type="Int32" Nullable="false" />
+          <Property Name="Shipped" Type="Int32" Nullable="false" />
+          <Property Name="Sold" Type="Int32" Nullable="false" />
+          <Property Name="Product_Key" Type="Guid" Nullable="false" />
+          <Property Name="Delete_Flag" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Inventory_Products" FromRole="Inventory" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="Guid" Nullable="false" />
+          <Property Name="Reference" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Link" Type="String" MaxLength="2083" FixedLength="false" Unicode="true" />
+          <Property Name="Is_Lot" Type="Boolean" Nullable="false" />
+          <Property Name="Is_Single" Type="Boolean" Nullable="false" />
+          <Property Name="Min_Order_Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Purchase_Price" Type="Double" Nullable="false" />
+          <Property Name="Sell_Price" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Inventories" Relationship="Self.FK_Inventory_Products" FromRole="Products" ToRole="Inventory" />
+          <NavigationProperty Name="ProductSales" Relationship="Self.FK_ProductSales_Products" FromRole="Products" ToRole="ProductSales" />
+          <NavigationProperty Name="SaleDates" Relationship="Self.FK_SaleDate_Products" FromRole="Products" ToRole="SaleDate" />
+        </EntityType>
+        <EntityType Name="ProductSale">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="Guid" Nullable="false" />
+          <Property Name="Product_Key" Type="Guid" Nullable="false" />
+          <Property Name="SaleDate_Key" Type="Guid" Nullable="false" />
+          <Property Name="Delete_Flag" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductSales_Products" FromRole="ProductSales" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="SaleDate">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="Guid" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Product_Key" Type="Guid" Nullable="false" />
+          <Property Name="Delete_Flag" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_SaleDate_Products" FromRole="SaleDate" ToRole="Products" />
+        </EntityType>
+        <Association Name="FK_Inventory_Products">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="Product_Key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductSales_Products">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductSales" Type="Self.ProductSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="ProductSales">
+              <PropertyRef Name="Product_Key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleDate_Products">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="SaleDate" Type="Self.SaleDate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="SaleDate">
+              <PropertyRef Name="Product_Key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AllPearlsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Inventories" EntityType="Self.Inventory" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ProductSales" EntityType="Self.ProductSale" />
+          <EntitySet Name="SaleDates" EntityType="Self.SaleDate" />
+          <AssociationSet Name="FK_Inventory_Products" Association="Self.FK_Inventory_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Inventory" EntitySet="Inventories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSales_Products" Association="Self.FK_ProductSales_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductSales" EntitySet="ProductSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleDate_Products" Association="Self.FK_SaleDate_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="SaleDate" EntitySet="SaleDates" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PearlsModelStoreContainer" CdmEntityContainer="AllPearlsEntities">
+          <EntitySetMapping Name="Inventories">
+            <EntityTypeMapping TypeName="PearlsModel.Inventory">
+              <MappingFragment StoreEntitySet="Inventory">
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="On_Hand" ColumnName="On_Hand" />
+                <ScalarProperty Name="Shipped" ColumnName="Shipped" />
+                <ScalarProperty Name="Sold" ColumnName="Sold" />
+                <ScalarProperty Name="Product_Key" ColumnName="Product_Key" />
+                <ScalarProperty Name="Delete_Flag" ColumnName="Delete_Flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="PearlsModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Is_Lot" ColumnName="Is_Lot" />
+                <ScalarProperty Name="Is_Single" ColumnName="Is_Single" />
+                <ScalarProperty Name="Min_Order_Quantity" ColumnName="Min_Order_Quantity" />
+                <ScalarProperty Name="Purchase_Price" ColumnName="Purchase_Price" />
+                <ScalarProperty Name="Sell_Price" ColumnName="Sell_Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductSales">
+            <EntityTypeMapping TypeName="PearlsModel.ProductSale">
+              <MappingFragment StoreEntitySet="ProductSales">
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Product_Key" ColumnName="Product_Key" />
+                <ScalarProperty Name="SaleDate_Key" ColumnName="SaleDate_Key" />
+                <ScalarProperty Name="Delete_Flag" ColumnName="Delete_Flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SaleDates">
+            <EntityTypeMapping TypeName="PearlsModel.SaleDate">
+              <MappingFragment StoreEntitySet="SaleDate">
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Product_Key" ColumnName="Product_Key" />
+                <ScalarProperty Name="Delete_Flag" ColumnName="Delete_Flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

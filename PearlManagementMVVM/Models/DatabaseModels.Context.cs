@@ -13,10 +13,10 @@ namespace PearlManagementMVVM.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PearlsEntities : DbContext
+    public partial class AllPearlsEntities : DbContext
     {
-        public PearlsEntities()
-            : base("name=PearlsEntities")
+        public AllPearlsEntities()
+            : base("name=AllPearlsEntities")
         {
         }
     
@@ -25,6 +25,9 @@ namespace PearlManagementMVVM.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Inventory> Inventories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductSale> ProductSales { get; set; }
+        public virtual DbSet<SaleDate> SaleDates { get; set; }
     }
 }
